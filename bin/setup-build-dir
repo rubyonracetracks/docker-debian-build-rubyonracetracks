@@ -11,5 +11,10 @@ echo "Build directory: $DIR_BUILD"
 mkdir -p "$DIR_BUILD"
 
 DIR_EDITION="$DIR_ROOT/editions/$ABBREV"
-echo "Getting $ABBREV build files from $DIR_EDITION"
+echo ''
+echo "cp -R $DIR_EDITION/. $DIR_BUILD"
 cp -R "$DIR_EDITION/." "$DIR_BUILD"
+
+echo ''
+echo "cp -R $DIR_ROOT/tmp/bin $DIR_BUILD"
+cp -R "$DIR_ROOT/tmp/bin" "$DIR_BUILD"
