@@ -12,9 +12,9 @@ cp bin/set-variables tmp/bin
 
 ABBREV='min-stage1'
 SUITE='bookworm'
-OWNER='rubyonracetracks'
 DISTRO='debian'
+OWNER='rubyonracetracks'
 
-bin/update-set-variables "$ABBREV" "$OWNER" "$SUITE" "$DISTRO"
+bin/update-set-variables "$ABBREV" "$SUITE" "$DISTRO" "$OWNER"
 bin/setup-build-dir
 

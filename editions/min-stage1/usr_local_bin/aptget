@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# NOTE: set -o pipefail is needed to ensure that any error or failure causes the whole pipeline to fail.
+# Without this specification, the CI status will provide a false sense of security by showing builds
+# as succeeding in spite of errors or failures.
+set -eo pipefail
+
+# Set environment variables to cut down on annoying warning messages
+export DEBIAN_FRONTEND='noninteractive'
+export DEBCONF_NOWARNINGS='true'
+export HOME=/root
+export LC_ALL=C
+
+echo '+++++++++++++++++++++++'
+echo 'BEGIN preparing apt-get'
+echo '+++++++++++++++++++++++'
+
+set +e
+echo '-------------'
+echo 'cd / && du -s'
+cd / && du -s
+set -e
+
+echo '--------------'
+echo "apt-get update"
+apt-get update
+
+# NOTE: Skipping this test results in the following message for many other apt-get tasks:
+# debconf: delaying package configuration, since apt-utils is not installed
+echo '----------------------------'
+echo 'apt-get install -y apt-utils'
+apt-get install -y apt-utils
+
+echo '------------------'
+echo "apt-get upgrade -y"
+apt-get upgrade -y
+
+set +e
+echo '-------------'
+echo 'cd / && du -s'
+cd / && du -s
+set -e
+
+echo '++++++++++++++++++++++++++'
+echo 'FINISHED preparing apt-get'
+echo '++++++++++++++++++++++++++'

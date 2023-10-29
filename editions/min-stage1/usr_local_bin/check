@@ -5,11 +5,4 @@
 # as succeeding in spite of errors or failures.
 set -eo pipefail
 
-cd tmp && source bin/set-variables
-
-echo "Build directory: $DIR_BUILD"
-mkdir -p "$DIR_BUILD"
-
-DIR_EDITION="$DIR_ROOT/editions/$ABBREV"
-echo "Getting $ABBREV build files from $DIR_EDITION"
-cp -R "$DIR_EDITION/." "$DIR_BUILD"
+/usr/local/bin/check-<ABBREV>

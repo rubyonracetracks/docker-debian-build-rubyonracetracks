@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# NOTE: set -o pipefail is needed to ensure that any error or failure causes the whole pipeline to fail.
+# Without this specification, the CI status will provide a false sense of security by showing builds
+# as succeeding in spite of errors or failures.
+set -eo pipefail
+
+# Clean up
+echo '++++++++++++++++++++++++++++++++++'
+echo 'BEGIN cleaning up the Docker image'
+echo '++++++++++++++++++++++++++++++++++'
+
+set +e
+echo '-------------'
+echo 'cd / && du -s'
+cd / && du -s
+set -e
+
+echo '-----------------'
+echo "apt-get -y clean;"
+apt-get -y clean;
+
+echo '-----------------'
+echo "apt-get autoclean"
+apt-get autoclean
+
+echo '----------------------'
+echo "rm -rf /usr/share/doc;"
+rm -rf /usr/share/doc;
+
+echo '------------------------------------------'
+echo "find /var/cache -type f -exec rm -rf {} \;"
+find /var/cache -type f -exec rm -rf {} \;
+
+echo '----------------------------------------------------------'
+echo "find /var/lib/apt/lists -maxdepth 1 -type f -exec rm {} \;"
+find /var/lib/apt/lists -maxdepth 1 -type f -exec rm {} \;
+
+echo '-----------------------------------------------------'
+echo 'Removing non-English languages from /usr/share/locale'
+for lang in $(ls /usr/share/locale | grep -v ^en)
+do
+  rm -rf /usr/share/locale/$lang
+done
+
+echo '----'
+echo 'sync'
+sync
+
+set +e
+echo '-------------'
+echo 'cd / && du -s'
+cd / && du -s
+set -e
+
+echo '+++++++++++++++++++++++++++++++++++++'
+echo 'FINISHED cleaning up the Docker image'
+echo '+++++++++++++++++++++++++++++++++++++'
