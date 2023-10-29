@@ -5,15 +5,4 @@
 # as succeeding in spite of errors or failures.
 set -eo pipefail
 
-rm -rf tmp
-
-mkdir -p tmp/bin
-cp bin/set-variables tmp/bin
-
-ABBREV='min-stage1'
-SUITE='bookworm'
-OWNER='rubyonracetracks'
-DISTRO='debian'
-
-bin/update-set-variables "$ABBREV" "$OWNER" "$SUITE" "$DISTRO"
-bin/setup-work-dir
+cd tmp && source bin/set-variables
