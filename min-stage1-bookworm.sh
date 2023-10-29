@@ -16,5 +16,5 @@ OWNER='rubyonracetracks'
 DISTRO='debian'
 
 bin/update-set-variables "$ABBREV" "$OWNER" "$SUITE" "$DISTRO"
-bin/setup-work-dir
+bin/setup-build-dir
 
