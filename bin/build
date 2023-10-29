@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# NOTE: set -o pipefail is needed to ensure that any error or failure causes the whole pipeline to fail.
+# Without this specification, the CI status will provide a false sense of security by showing builds
+# as succeeding in spite of errors or failures.
+set -eo pipefail
+
+ABBREV="$1"
+SUITE="$2"
+DISTRO="$3"
+OWNER="$4"
+
+TIME_STAMP_LOG=`date +%Y_%m%d_%H%M_%S`
+DIR_LOG="log/$ABBREV/$SUITE"
+mkdir -p "$DIR_LOG"
+LOG_FILE="$DIR_LOG/$TIME_STAMP_LOG.txt"
+echo "Log file: $LOG_FILE"
+
+mkdir -p log
+bin/build-log "$ABBREV" "$SUITE" "$DISTRO" "$OWNER" 2>&1 | tee "$LOG_FILE"
+
+echo 'The build process is complete.'
+echo "The full log file is at $LOG_FILE."
