@@ -16,7 +16,7 @@ TIME_STAMP=`date +%Y_%m%d_%H%M_%S`
 update-bin-set-variables () {
   STRING1="$1"
   STRING2="$2"
-  wget -O - \
+  wget -q -O - \
     https://raw.githubusercontent.com/rubyonracetracks/docker-common/main/replace-string-in-file.sh \
     | bash -s "$STRING1" "$STRING2" 'tmp/bin/set-variables'
 }

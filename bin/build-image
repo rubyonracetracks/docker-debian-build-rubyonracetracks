@@ -7,8 +7,14 @@ set -eo pipefail
 
 source bin/set-variables
 
-echo "ABBREV: $ABBREV"
-
 DOCKER_IMAGE="ghcr.io/$OWNER/image-$DISTRO-$SUITE-$ABBREV"
 
+echo '##############################################'
+echo "BEGIN: Creating the Docker image $DOCKER_IMAGE"
+echo '##############################################'
+
 cd "$DIR_BUILD" && docker build -t $DOCKER_IMAGE .
+
+echo '#################################################'
+echo "FINISHED: Creating the Docker image $DOCKER_IMAGE"
+echo '#################################################'
