@@ -17,6 +17,7 @@ rm -rf tmp
 
 mkdir -p tmp/bin
 cp bin/set-variables tmp/bin
+cp bin/build-image tmp/bin
 
 bin/update-set-variables "$ABBREV" "$SUITE" "$DISTRO" "$OWNER"
 bin/setup-build-dir
@@ -24,3 +25,6 @@ bin/setup-build-dir
 echo '-----------------------'
 echo 'FINISHED: initial setup'
 echo '-----------------------'
+
+source tmp/bin/set-variables
+cd "$DIR_BUILD" && bin/build-image

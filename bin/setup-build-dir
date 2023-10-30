@@ -18,3 +18,21 @@ cp -R "$DIR_EDITION/." "$DIR_BUILD"
 echo ''
 echo "cp -R $DIR_ROOT/tmp/bin $DIR_BUILD"
 cp -R "$DIR_ROOT/tmp/bin" "$DIR_BUILD"
+
+update-build-files () {
+  STRING1="$1"
+  STRING2="$2"
+  wget -O - \
+  https://raw.githubusercontent.com/rubyonracetracks/docker-common/main/replace-string-in-directory-recursive.sh \
+  | bash -s "$STRING1" "$STRING2" "$DIR_BUILD"
+  echo "Replacing $STRING1 with $STRING2"
+}
+
+update-build-files '<ABBREV>' "$ABBREV"
+update-build-files '<SUITE>' "$SUITE"
+update-build-files '<OWNER>' "$OWNER"
+update-build-files '<DISTRO>' "$DISTRO"
+update-build-files '<DIR_ROOT>' "$DIR_ROOT"
+update-build-files '<REGULAR_USER>' "$REGULAR_USER"
+update-build-files '<TIME_STAMP>' "$TIME_STAMP"
+wait
