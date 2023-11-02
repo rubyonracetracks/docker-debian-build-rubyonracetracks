@@ -18,7 +18,7 @@ jobs:
       SUITE: ${{ matrix.CODE_NAME }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build the Docker image
         run: bash min-stage1-$SUITE.sh
