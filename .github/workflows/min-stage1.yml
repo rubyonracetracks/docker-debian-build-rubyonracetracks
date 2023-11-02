@@ -31,9 +31,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ github.ref == 'refs/heads/main' }}
 
-      # - name: Publish the Docker image
-        # run: source variables.sh && docker push $DOCKER_IMAGE:latest
-        # if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Publish the Docker image
+        run: source tmp/bin/set-variables && docker push $DOCKER_IMAGE:latest
+        if: ${{ github.ref == 'refs/heads/main' }}
 
       # - name: Delete old containers
         # uses: snok/container-retention-policy@v2
