@@ -10,10 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      packages: write
-
     strategy:
       matrix:
         CODE_NAME: ['bookworm', 'trixie', 'sid']
