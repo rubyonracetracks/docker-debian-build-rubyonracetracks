@@ -35,17 +35,17 @@ jobs:
         run: source tmp/bin/set-variables && docker push $DOCKER_IMAGE:latest
         if: ${{ github.ref == 'refs/heads/main' }}
 
-      # - name: Delete old containers
-        # uses: snok/container-retention-policy@v2
-        # with:
-          # image-names: image-debian-*-min-stage1
-          # cut-off: A week ago UTC
-          # account-type: org
-          # org-name: rubyonracetracks
-          # keep-at-least: 1
-          # untagged-only: true
-          # token: ${{ secrets.SPECIAL_TOKEN }}
-        # if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Delete old containers
+        uses: snok/container-retention-policy@v2
+        with:
+          image-names: image-debian-$SUITE-min-stage1
+          cut-off: A minute ago UTC
+          account-type: org
+          org-name: rubyonracetracks
+          keep-at-least: 1
+          untagged-only: true
+          token: ${{ secrets.SPECIAL_TOKEN }}
+        if: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Log out of the Docker container registry
         run: docker logout ghcr.io
